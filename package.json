@@ -1,0 +1,17 @@
+{
+  "name": "intro-to-nodejs-expressjs-1-dkowalski1906",
+  "version": "1.0.0",
+  "description": "express.js",
+  "main": "main.js",
+  "scripts": {
+    "dev": "nodemon main.js"
+  },
+  "author": "Damien Kowalski",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^3.1.7"
+  },
+  "dependencies": {
+    "express": "^4.21.1"
+  }
+}

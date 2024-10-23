@@ -1,17 +1,32 @@
 const http = require("http");
-
-/**
- Todo Complete this app to serve the content inside `static` folder
- 
- - Create an http server that serves the app in: `static/html/index.html`
- - The app shows navigation pages that should be created and placed inside `static/html`
- - If an url is not found the app should serve "Page not found"
-
- -- Hint, it possible to read a file using `readFileSync` of fs module and serve it to the client
- */
+const fs = require("fs");
+const path = require("path");
 
 const server = http.createServer((req, res) => {
-  //
+  let filePath = "";
+
+  if (req.url === "/") {
+    filePath = path.join(__dirname, "static", "html", "index.html");
+
+    const content = fs.readFileSync(filePath, "utf8");
+    const extname = path.extname(filePath);
+    let contentType = "text/html";
+    res.end(content);
+  }
+
+  else if (req.url === "/js/app.js") {
+    console.log("serve app js")
+    const contentJS = fs.readFileSync("src/static/js/app.js");
+    res.end(contentJS)
+  }
+  
+  else {
+    res.writeHead(404);
+    res.end();
+  }
 });
 
-server.listen(3000);
+// Start the server on port 3000
+server.listen(3000, () => {
+  console.log("Server is listening on port 3000");
+});
