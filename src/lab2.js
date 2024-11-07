@@ -20,26 +20,55 @@ const express = require("express");
 const app = express();
 const port = 3000;
 
+let data = [
+  {
+  "name": "Jean Dupont",
+  "age": 50,
+  "id": 1
+  },
+  {
+  "name": "Damien Kowalski",
+  "age": 21,
+  "id": 2
+  },
+  {
+  "name": "Valentin Kowalski",
+  "age": 18,
+  "id": 3
+  },
+]
+
 app.use(express.json());
 
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
-app.post("/submit", (req, res) => {
-  console.log(req.body);
-
-  const { name, age } = req.body;
-
-  res.send(`Received POST request. Name: ${name}, Age: ${age}`);
+app.get("/get", (req, res) => {
+  const { name, age, id } = req.body;
+  data.push(
+    {
+      "name": name,
+      "age": age,
+      "id": id
+    }
+  )
+  res.send("Hello World!");
 });
 
-app.delete("/delete", (req, res) => {
-  console.log(req.body);
+app.post("/post", (req, res) => {
 
-  const { name, age } = req.body;
+  const { name, age, id } = req.body;
 
-  res.send(`Received POST request. Name: ${name}, Age: ${age}`);
+  const newData = {
+      "name": name,
+      "age": age,
+      "id": id
+  }
+
+  data.push(newData)
+
+  res.send(JSON.stringify(data));
 });
 
 app.listen(port, () => {
